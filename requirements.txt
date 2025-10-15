@@ -7,3 +7,4 @@ streamlit
 pydantic
 certifi
 dotenv
+plotly
