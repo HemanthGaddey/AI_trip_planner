@@ -5,5 +5,5 @@ langgraph
 langchain_google_genai
 streamlit
 pydantic
-certify
+certifi
 dotenv
