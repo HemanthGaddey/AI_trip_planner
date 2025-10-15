@@ -25,7 +25,7 @@ from itinerary import display_itinerary, display_itinerary_with_alternatives
 import os
 os.environ["LANGSMITH_TRACING"] = "true"
 os.environ["LANGSMITH_ENDPOINT"] = "https://api.smith.langchain.com"
-from config import LANGSMITH_API_KEY 
+from config import LANGSMITH_API_KEY
 os.environ["LANGSMITH_API_KEY"] = LANGSMITH_API_KEY
 os.environ["LANGSMITH_PROJECT"] = "pr-political-driveway-45"
 

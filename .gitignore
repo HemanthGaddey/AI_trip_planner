@@ -1,1 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE-specific directories and files (e.g., VS Code, PyCharm)
+.idea/
+.vscode/
+
+# Virtual environments
+venv/
+.venv/
+env/
 .env
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
