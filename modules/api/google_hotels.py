@@ -14,11 +14,15 @@ class SerpApiHotelClient:
         self.api_key = api_key
 
     def get_hotel_data(self, query: str, check_in: datetime.date, check_out: datetime.date, adults: int = 2):
+        
+        check_in_obj = datetime.strptime(check_in, "%Y-%m-%d")
+        check_out_obj = datetime.strptime(check_out, "%Y-%m-%d")
+
         params = {
             "engine": "google_hotels",
             "q": query,
-            "check_in_date": check_in.strftime("%Y-%m-%d"),
-            "check_out_date": check_out.strftime("%Y-%m-%d"),
+            "check_in_date": check_in_obj.strftime("%Y-%m-%d"),
+            "check_out_date": check_out_obj.strftime("%Y-%m-%d"),
             "adults": adults,
             "gl": "us",
             "hl": "en",

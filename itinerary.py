@@ -58,6 +58,8 @@ def display_itinerary(
                     for dest in result['alternate_destinations']:
                         st.write(f"• {dest}")
                     
+                    st.write("\n*Feel free to search for any of the above destinations ;D*")
+
                     st.write("\n💡 *Tip: Try planning with one of these alternatives for better weather!*")
                 else:
                     st.write("Consider adjusting your dates or destination.")
@@ -97,13 +99,14 @@ def display_itinerary(
             col1, col2, col3 = st.columns(3)
             
             with col1:
-                if st.button("📥 Download Itinerary", use_container_width=True):
-                    st.download_button(
-                        label="Download as Markdown",
-                        data=result['itinerary_markdown'],
-                        file_name=f"itinerary_{trip_details['destination'].lower().replace(' ', '_')}.md",
-                        mime="text/markdown"
-                    )
+                # if st.button("📥 Download Itinerary", use_container_width=True):
+                st.download_button(
+                    label="📥 Download Itinerary",
+                    use_container_width=True,
+                    data=result['itinerary_markdown'],
+                    file_name=f"itinerary_{trip_details['destination'].lower().replace(' ', '_')}.md",
+                    mime="text/markdown"
+                )
             
             with col2:
                 if st.button("🔄 Regenerate", use_container_width=True):
@@ -162,30 +165,30 @@ def display_itinerary_with_alternatives(
     planner = get_planner()
     
     # Create tabs for main plan vs alternatives
-    tab1, tab2 = st.tabs(["🎯 Your Itinerary", "🔄 Alternative Options"])
+    # tab1, tab2 = st.tabs(["🎯 Your Itinerary", "🔄 Alternative Options"])
     
-    with tab1:
-        display_itinerary(trip_details, config, show_debug=False)
+    # with tab1:
+    display_itinerary(trip_details, config, show_debug=False)
     
-    with tab2:
-        st.write("### Weather-Based Alternatives")
-        st.info("If weather conditions aren't ideal, here are some alternative destinations:")
+    # with tab2:
+    #     st.write("### Weather-Based Alternatives")
+    #     st.info("If weather conditions aren't ideal, here are some alternative destinations:")
         
-        with st.spinner("Finding alternatives..."):
-            result = planner.plan_trip(trip_details)
+    #     with st.spinner("Finding alternatives..."):
+    #         result = planner.plan_trip(trip_details)
             
-            if result.get('alternate_destinations'):
-                for dest in result['alternate_destinations']:
-                    with st.container():
-                        st.write(f"#### 📍 {dest}")
-                        if st.button(f"Plan trip to {dest}", key=f"alt_{dest}"):
-                            # Update trip details with new destination
-                            new_details = trip_details.copy()
-                            new_details['destination'] = dest
-                            st.session_state.trip_details = new_details
-                            st.rerun()
-            else:
-                st.write("No alternatives needed - weather looks great! ☀️")
+    #         if result.get('alternate_destinations'):
+    #             for dest in result['alternate_destinations']:
+    #                 with st.container():
+    #                     st.write(f"#### 📍 {dest}")
+    #                     if st.button(f"Plan trip to {dest}", key=f"alt_{dest}"):
+    #                         # Update trip details with new destination
+    #                         new_details = trip_details.copy()
+    #                         new_details['destination'] = dest
+    #                         st.session_state.trip_details = new_details
+    #                         st.rerun()
+    #         else:
+    #             st.write("No alternatives needed - weather looks great! ☀️")
 
 
 def display_compact_itinerary(

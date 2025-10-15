@@ -58,15 +58,15 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     departure_loc = st.text_input("Departure Location", "Bangalore", help="e.g., Bangalore city")
-    destination_loc = st.text_input("Destination", "Bangkok", help="e.g., Bangkok city")
+    destination_loc = st.text_input("Destination", "Jodhpur", help="e.g., Jodhpur city")
     num_adults = st.number_input("Number of Adults", 1, 10, 2)
 
 with col2:
-    today = datetime.now().date()
+    tomorrow = datetime.now().date() + timedelta(days=1)
     start_date = st.date_input(
         "Start Date",
-        value=today,
-        min_value=today
+        value=tomorrow,
+        min_value=tomorrow
     )
     duration = st.number_input("Trip Duration (nights)", 1, 30, 7)
     end_date = start_date + timedelta(days=duration)
@@ -149,7 +149,59 @@ if st.session_state.search_clicked:
     
     st.header(f"Your Custom Trip Plan to {details['destination_display']}")
     
-    # AI Smart Planner Mode
+    # Construct a more descriptive query for hotels
+    hotel_query = f"{details['travel_type']} hotels in {details['destination']}"
+    # --- Weather Display ---
+    st.subheader("🌤️ Weather Forecast")
+    from modules.components.weather import display_weather_results
+    display_weather_results(
+        openweather_api_key=OPENWEATHER_API_KEY, 
+        location=details['destination_display'],
+        start_date=details['start_date'] if isinstance(details['start_date'], str) else details['start_date'].strftime('%Y-%m-%d'),
+        end_date=details['end_date'] if isinstance(details['end_date'], str) else details['end_date'].strftime('%Y-%m-%d')
+    )
+    st.header("Flights, Hotels & Things to Do: Detailed Search")
+    # --- Tabs for other results ---
+    flights_tab, hotels_tab, things_to_do_tab = st.tabs(["✈️ Flights", "🏨 Hotels", "🗺️ Things to Do"])
+
+    with flights_tab:
+        try:
+            departure_iata = amadeus_client.find_nearest_airport(details['departure'], specific_get='iataCode')
+            arrival_iata = amadeus_client.find_nearest_airport(details['destination'], specific_get='iataCode')
+            
+            st.info(f"Flying from {departure_iata} to {arrival_iata}")
+            
+            display_flight_results(
+                api_key=SERPAPI_KEY,
+                departure_id=departure_iata,
+                arrival_id=arrival_iata,
+                outbound_date=details['start_date'] if isinstance(details['start_date'], str) else details['start_date'],
+                return_date=details['end_date'] if isinstance(details['end_date'], str) else details['end_date'],
+                max_price=details['flight_budget']
+            )
+        except Exception as e:
+            st.error(f"Error finding airports: {e}")
+            st.info("Try using airport codes like BLR (Bangalore) or BKK (Bangkok)")
+
+    with hotels_tab:
+        display_hotel_results(
+            query_input=hotel_query,
+            check_in_date=details['start_date'],# if isinstance(details['start_date'], datetime) else datetime.strptime(details['start_date'], '%Y-%m-%d').date(),
+            check_out_date=details['end_date'],# if isinstance(details['end_date'], datetime) else datetime.strptime(details['end_date'], '%Y-%m-%d').date(),
+            num_adults=details['adults'],
+            api_key=SERPAPI_KEY,
+            max_price=details['hotel_budget']
+        )
+    
+    with things_to_do_tab:
+        display_things_to_do_results(
+            query_input=details['destination_display'],
+            api_key=TRIPADVISOR_API_KEY
+        )
+    
+    st.divider()
+
+    # AI Smart Planner Mode---------->
     if not st.session_state.show_detailed_results:
         st.markdown("---")
         st.subheader("🤖 AI-Generated Personalized Itinerary")
@@ -171,9 +223,9 @@ if st.session_state.search_clicked:
         st.divider()
         
         # Option to view detailed results
-        if st.button("📊 View Detailed Search Results", use_container_width=True):
-            st.session_state.show_detailed_results = True
-            st.rerun()
+        # if st.button("📊 View Detailed Search Results", use_container_width=True):
+        #     st.session_state.show_detailed_results = True
+        #     st.rerun()
     
     # Detailed Search Mode
     else:
@@ -233,11 +285,6 @@ if st.session_state.search_clicked:
         
         st.divider()
         
-        # Option to get AI itinerary
-        if st.button("🤖 Generate AI Itinerary from Results", use_container_width=True):
-            st.session_state.show_detailed_results = False
-            st.rerun()
-
 else:
     st.info("Fill in your travel details above and click 'AI Smart Planner' to get an intelligent, personalized itinerary!")
     

@@ -124,7 +124,7 @@ class LLMTripPlanner:
         
         # Initialize LLM
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash-exp",
+            model="gemini-2.0-flash",
             google_api_key=self.gemini_api_key,
             temperature=0.7
         )
@@ -249,6 +249,7 @@ Suggest 3-5 alternate destinations that:
 2. Match the travel type and preferences
 3. Are accessible from {departure}
 4. Offer similar experiences
+5. give just city names and no country or anything and that too only in lower case.
 
 Provide the destinations as a JSON list with reasons.
 

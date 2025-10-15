@@ -39,6 +39,7 @@ class SerpApiFlightClient:
             "currency": currency,
             "gl": gl,
             "hl": hl,
+            "type": 1,
             "deep_search": "true", # Using string as per API docs
             "sort_by": "2" # Sort by best flights
         }
