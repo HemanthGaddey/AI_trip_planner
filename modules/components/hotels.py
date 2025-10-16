@@ -140,7 +140,7 @@ def display_hotel_results(
             with st.container(border=True):
                 col1, col2 = st.columns([1, 3])
                 with col1:
-                    st.image(thumbnail_url, use_column_width='auto', caption=name[:50] + "...")
+                    st.image(thumbnail_url, caption=name[:50] + "...")
                     if price:
                         st.metric(label="Price/night", value=f"${price:,.0f}")
                     else:

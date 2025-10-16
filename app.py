@@ -97,10 +97,12 @@ with col3:
 st.divider()
 
 # --- Planning Mode Selection ---
-col_btn1, col_btn2 = st.columns(2)
 
-with col_btn1:
-    if st.button("🤖 AI Smart Planner (Recommended)", type="primary", use_container_width=True):
+# col_btn1, col_btn2 = st.columns(2 
+
+# with col_btn1:4
+if True:
+    if st.button("🤖 Plan my trip!", type="primary", use_container_width=True):
         st.session_state.trip_details = {
             'departure': departure_loc,
             'destination': destination_loc,
@@ -121,27 +123,27 @@ with col_btn1:
         st.session_state.search_clicked = True
         st.session_state.show_detailed_results = False
 
-with col_btn2:
-    if st.button("🔍 Detailed Search View", use_container_width=True):
-        st.session_state.trip_details = {
-            'departure': departure_loc.upper(),
-            'destination': destination_loc.upper(),
-            'destination_display': destination_loc,
-            'start_date': start_date,
-            'end_date': end_date,
-            'duration': duration,
-            'adults': num_adults,
-            'travel_type': travel_type,
-            'hotel_budget': budget_per_night,
-            'flight_budget': budget_flight,
+# with col_btn2:
+#     if st.button("🔍 Detailed Search View", use_container_width=True):
+#         st.session_state.trip_details = {
+#             'departure': departure_loc.upper(),
+#             'destination': destination_loc.upper(),
+#             'destination_display': destination_loc,
+#             'start_date': start_date,
+#             'end_date': end_date,
+#             'duration': duration,
+#             'adults': num_adults,
+#             'travel_type': travel_type,
+#             'hotel_budget': budget_per_night,
+#             'flight_budget': budget_flight,
 
-            ## alt names
-            'budget_flight':budget_flight,
-            'budget_per_night':budget_per_night,
-            'budget_hotel':budget_per_night,
-        }
-        st.session_state.search_clicked = True
-        st.session_state.show_detailed_results = True
+#             ## alt names
+#             'budget_flight':budget_flight,
+#             'budget_per_night':budget_per_night,
+#             'budget_hotel':budget_per_night,
+#         }
+#         st.session_state.search_clicked = True
+#         st.session_state.show_detailed_results = True
 
 # --- Results Display ---
 if st.session_state.search_clicked:

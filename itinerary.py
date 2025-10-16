@@ -58,9 +58,9 @@ def display_itinerary(
                     for dest in result['alternate_destinations']:
                         st.write(f"• {dest}")
                     
-                    st.write("\n*Feel free to search for any of the above destinations ;D*")
+                    st.write("\n💡 *Feel free to search for any of the above destinations ;D*")
 
-                    st.write("\n💡 *Tip: Try planning with one of these alternatives for better weather!*")
+                    # st.write("\n💡 *Tip: Try planning with one of these alternatives for better weather!*")
                 else:
                     st.write("Consider adjusting your dates or destination.")
                 
@@ -78,15 +78,16 @@ def display_itinerary(
                     st.warning("🌧️ Weather Alert")
             
             with col2:
-                if result['budget_feasible']:
-                    st.success("💰 Within Budget")
-                else:
-                    st.info("💵 Budget Check")
+                # if result['budget_feasible']:
+                #     st.success("💰 Within Budget")
+                # else:
+                #     st.info("💵 Budget Check")
+                pass
             
             # Budget notes
-            if result['budget_notes']:
-                with st.expander("💰 Budget Analysis"):
-                    st.write(result['budget_notes'])
+            # if result['budget_notes']:
+            #     with st.expander("💰 Budget Analysis"):
+            #         st.write(result['budget_notes'])
             
             st.divider()
             

@@ -45,7 +45,7 @@ def display_things_to_do_results(query_input: str, api_key: str):
                     # --- Image Column ---
                     with col1:  
                         if item.get("thumbnail"):
-                            st.image(item["thumbnail"], caption=item.get("title", ""), use_column_width='auto')
+                            st.image(item["thumbnail"], caption=item.get("title", ""))
 
                     # --- Details Column ---
                     with col2:

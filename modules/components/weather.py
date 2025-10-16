@@ -102,11 +102,9 @@ def display_weather_results(
             background-color: #0E1117; /* Streamlit dark theme background */
             color: #FAFAFA;
         }
-        .weather-table tr:nth-child(even) {
-            background-color: #2F2F3B;
-        }
         .weather-table tr:hover {
-            background-color: #4A4A58;
+            background-color: #4A4A58;    
+            color: white;
         }
         .weather-icon {
             font-size: 24px;
@@ -114,6 +112,10 @@ def display_weather_results(
     </style>
     """
     
+    # .weather-table tr:nth-child(even) {
+    #     background-color: #2F2F3B;
+    # }
+
     table_header = """
     <table class="weather-table">
         <thead>
