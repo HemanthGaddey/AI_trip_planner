@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime
 from modules.api.open_meteo import WeatherClient
+import random
+import string
+
+def random_string(length=10):
+    chars = string.ascii_letters + string.digits  # A-Z, a-z, 0-9
+    return ''.join(random.choice(chars) for _ in range(length))
 
 def get_weather_interpretation(wmo_code):
     """
@@ -203,16 +209,16 @@ def display_weather_results(
                     labels={"value": "Value", "time_formatted": "Time (Local)", "variable": "Parameter"},
                     title="Temperature, Rain & Showers"
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, use_container_width=True, key=random_string())
 
                 colA, colB = st.columns(2)
                 with colA:
                     fig_humidity = px.line(day_hourly_df, x="time_formatted", y="relative_humidity_2m", title="💧 Relative Humidity")
-                    st.plotly_chart(fig_humidity, use_container_width=True)
+                    st.plotly_chart(fig_humidity, use_container_width=True, key=random_string())
                 with colB:
                     fig_cloud = px.line(day_hourly_df, x="time_formatted", y="cloud_cover", title="☁️ Cloud Cover (%)")
-                    st.plotly_chart(fig_cloud, use_container_width=True)
-                    
+                    st.plotly_chart(fig_cloud, use_container_width=True, key=random_string())
+
                 # with st.expander("📋 View Detailed Hourly Data Table"):
                 #     display_cols = ['time_formatted', 'temperature_2m', 'relative_humidity_2m', 'rain', 'showers', 'cloud_cover', 'wind_speed_80m']
                 #     rename_cols = {'time_formatted': 'Time', 'temperature_2m': 'Temp (°C)', 'relative_humidity_2m': 'Humidity (%)', 'rain': 'Rain (mm)', 'showers': 'Showers (mm)', 'cloud_cover': 'Cloud Cover (%)', 'wind_speed_80m': 'Wind (km/h)'}
