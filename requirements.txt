@@ -1,8 +1,8 @@
-langchain 
-langchain-core
-langsmith
-langgraph
-langchain_google_genai
+langchain==0.3.27
+langchain-core==0.3.79
+langsmith==0.4.34
+langgraph==0.6.10
+langchain_google_genai==2.1.12
 streamlit
 pydantic
 certifi

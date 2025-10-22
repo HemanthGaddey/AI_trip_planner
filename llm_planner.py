@@ -9,9 +9,8 @@ from datetime import datetime, timedelta
 import json
 
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StructuredOutputParser, ResponseSchema
-from langchain_core.output_parsers.pydantic import PydanticOutputParser
+from langchain.prompts import ChatPromptTemplate
+from langchain.output_parsers import PydanticOutputParser, StructuredOutputParser, ResponseSchema
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
 from pydantic import BaseModel, Field
