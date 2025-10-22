@@ -10,7 +10,7 @@ import json
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers.structured import StructuredOutputParser, ResponseSchema
+from langchain_core.output_parsers import StructuredOutputParser, ResponseSchema
 from langchain_core.output_parsers.pydantic import PydanticOutputParser
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
